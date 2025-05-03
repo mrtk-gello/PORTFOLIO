@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lab2</title>
+
+  <script>
+    function getValues() {
+      const num1 = parseFloat(document.getElementById("num1").value);
+      return [num1];
+    }
+
+    function even() {
+      const [num1] = getValues();
+      let count = 0;
+
+      if (isNaN(num1)) {
+        document.getElementById('result1').textContent = "Please enter a valid number.";
+        document.getElementById('result2').textContent = "";
+        return;
+      }
+
+      if (num1 % 2 === 0) {
+        document.getElementById('result1').textContent = "THE NUMBER IS EVEN";
+      } else {
+        document.getElementById('result1').textContent = "THE NUMBER IS ODD";
+      }
+
+      if (num1 <= 1) {
+        document.getElementById("result2").textContent = "INVALID";
+      } else {
+        for (let i = 1; i <= num1; i++) {
+          if (num1 % i === 0) count++;
+        }
+        if (count <= 2) {
+          document.getElementById("result2").textContent = "PRIME NUMBER";
+        } else {
+          document.getElementById("result2").textContent = "COMPOSITE NUMBER";
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background: #f0f0f0;
+    }
+
+    #container {
+      background: #ffffff;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      width: 320px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #2f4f2f;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    input[type="text"],
+    button {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    input[type="text"] {
+      background-color: #f9f9f9;
+      text-align: center;
+    }
+
+    button {
+      background-color: #2f4f2f;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #3f6842;
+    }
+
+    .results {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    #result1, #result2 {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <h2>EVEN & PRIME CHECKER</h2>
+    <div class="input-group">
+      <input type="text" id="num1" placeholder="ENTER A NUMBER" />
+      <button onclick="even();">Submit</button>
+    </div>
+
+    <div class="results">
+      <div id="result1"></div>
+      <div id="result2"></div>
+    </div>
+  </div>
+</body>
+</html>

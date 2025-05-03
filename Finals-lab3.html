@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lab3-Finals</title>
+
+  <script>
+    function calculate() {
+      const kilo = parseFloat(document.getElementById("kilo").value);
+      
+      if (isNaN(kilo)) {
+        document.getElementById("result1").textContent = "Please enter a valid number.";
+        return;
+      }
+
+      const cm = kilo * 100000;
+      document.getElementById("result1").textContent = kilo + " KILOMETER IS " + cm + " cm.";
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background: #f0f0f0;
+    }
+
+    #container {
+      background: #ffffff;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #2f4f2f;
+      font-size: 20px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"], button {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    input[type="text"] {
+      border: 1px solid #ccc;
+      text-align: center;
+      background-color: #f9f9f9;
+    }
+
+    button {
+      border: none;
+      background-color: #2f4f2f;
+      color: white;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #3f6842;
+    }
+
+    .results {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: 600;
+      color: #333;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <h2>KILOMETER TO CENTIMETER</h2>
+    <div class="form-group">
+      <input type="text" id="kilo" placeholder="ENTER A NUMBER" />
+      <button onclick="calculate();">Submit</button>
+    </div>
+
+    <div class="results">
+      <div id="result1"></div>
+    </div>
+  </div>
+</body>
+</html>

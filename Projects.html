@@ -1,0 +1,499 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <link rel="stylesheet" href="animation.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="darkmode.css">
+  <style>
+    body {
+      background: #f9f9f9;
+    }
+
+    .card {
+      transition: all 0.3s ease-in-out;
+      border: none;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .filter-btn {
+      border-radius: 20px;
+      margin: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .filter-btn.active {
+      background-color: #0d6efd;
+      color: white;
+    }
+
+    .tech-icons i {
+      margin-right: 8px;
+      font-size: 1.2rem;
+    }
+
+    .category-tag {
+      font-size: 0.8rem;
+      padding: 3px 8px;
+      background-color: #dee2e6;
+      border-radius: 12px;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+
+    .project-modal {
+      position: fixed;
+      top: 1in;
+      left: 1in;
+      right: 1in;
+      bottom: 1in;
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+      z-index: 1050;
+      overflow: hidden;
+      display: none;
+    }
+
+    .project-modal.active {
+      display: flex;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .modal-left {
+      width: 50%;
+      padding: 2rem;
+      background: #f8f9fa;
+      overflow-y: auto;
+    }
+
+    .modal-right {
+      width: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #ffffff;
+    }
+
+    .modal-right img {
+      max-width: 100%;
+      max-height: 90%;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .modal-right img:hover {
+      transform: scale(1.03);
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      z-index: 9999;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    h2 {
+      font-size: 45px;
+      font-weight: bold;
+      color: #333; /* Contrasting dark color */
+      margin-bottom: 40px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    #wa-button, .whatsapp-button, .whatsapp-float {
+      display: none !important;
+    }
+
+    .neumorphism-btn {
+            width: 50px;
+            height: 50px;
+            background: #e0e5ec;
+            border-radius: 50%;
+            box-shadow: 8px 8px 15px #a3b1c6, -8px -8px 15px #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .neumorphism-btn:active {
+            transform: translateY(-10px);
+        }
+
+        .neumorphism-btn .arrow {
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 15px solid #6c7b8b;
+        }
+
+        /* Hover effect for more interactivity */
+        .neumorphism-btn:hover {
+            box-shadow: 4px 4px 10px #a3b1c6, -4px -4px 10px #ffffff;
+        }
+
+        html {
+    scroll-behavior: smooth;
+    }
+
+  </style>
+</head>
+
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <!-- Navbar content here -->
+</nav>
+
+  <div class="container py-5">
+    <h2 class="text-center mb-4" data-aos="fade-up">My Projects</h2>
+    <div class="text-center mb-4" data-aos="fade-up">
+      <button class="btn btn-outline-primary filter-btn active" data-category="all">All</button>
+      <button class="btn btn-outline-primary filter-btn" data-category="prelims">Prelims</button>
+      <button class="btn btn-outline-primary filter-btn" data-category="midterms">Midterms</button>
+      <button class="btn btn-outline-primary filter-btn" data-category="finals">Finals</button>
+    </div>
+
+    <div class="row g-4" id="projectContainer">
+        <!-- Projects will be dynamically injected here from JavaScript -->
+
+    </div>
+      
+  </div>
+
+  <div class="project-modal" id="projectModal" data-aos="fade-up">
+    <div class="close-btn" id="closeModal" data-aos="fade-up">&times;</div>
+    <div class="modal-left" data-aos="fade-up">
+      <h3 id="modalTitle"></h3>
+      <p><strong>Date:</strong> <span id="modalDate"></span></p>
+      <p><strong>Description:</strong> <span id="modalDesc"></span></p>
+      <p><strong>Reflection:</strong> <span id="modalReflection"></span></p>
+    </div>
+    <div class="modal-right" data-aos="fade-up">
+      <a id="modalLink" href="#">
+        <img id="modalImage" src="" alt="Project Preview">
+      </a>
+    </div>
+  </div>
+
+  <div class="neumorphism-btn" id="neumorphismBtn">
+    <div class="arrow"></div>
+  </div>
+
+  <!-- Footer Section -->
+  <footer class="text-center py-3">
+    <hr>
+    <p>© 2025 Karl Marteja | BSCS | First-Year | All Rights Reserved</p>
+  </footer>
+
+
+  <script>
+    
+    const projectData = [
+      {
+        category: 'prelims',
+        title: 'Personal Resume',
+        date: '1-20-25',
+        description: 'A basic personal resume webpage built using HTML. It presents key personal information, educational background, skills, and contact details in a clean and organized layout.',
+        reflection: 'Creating my personal resume using HTML helped me understand the basic structure of a webpage. It was a good exercise in organizing content using sections and semantic tags.',
+        image: 'lab1.png',
+        link: 'Prelims-LAB Exercise 1.html'
+      },
+      {
+        category: 'prelims',
+        title: 'Sample Polynomial Expression',
+        date: '1-27-25',
+        description: 'A basic math-focused web page created using HTML. This project showcases the structure and formatting of polynomial expressions with clear text hierarchy, proper use of superscripts for exponents.',
+        reflection: 'I used HTML to format and display polynomial equations clearly. It helped me practice proper text styling and how to use superscripts effectively.',
+        image: 'lab2.png',
+        link: 'Prelims-LAB Exercise 2.html'
+      },
+      {
+        category: 'prelims',
+        title: 'Camping Safety',
+        date: '1-27-25',
+        description: 'An informative webpage that outlines essential safety guidelines for camping. It includes visual tips, dos and donts, and helpful resources to ensure a secure outdoor experience.',
+        reflection: 'I used HTML to format and display polynomial equations clearly.',
+        image: 'lab3.png',
+        link: 'Prelims-LAB Exercise 3.html'
+      },
+      {
+        category: 'prelims',
+        title: 'Article',
+        date: '2-3-25',
+        description: 'A concise and informative article web page built with semantic HTML. This project demonstrates proper article structuring, headings, and paragraph styling, focusing on clarity and readability of written content.',
+        reflection: 'Creating the article using HTML helped me understand how to structure content clearly using headings, paragraphs, and semantic tags. It taught me how to present information in a clean, organized format that’s easy to read and maintain.',
+        image: 'lab4.png',
+        link: 'Prelims-LAB Exercise 4.html'
+      },
+      {
+        category: 'prelims',
+        title: 'Weekly Schedule',
+        date: '2-3-25',
+        description: 'A structured weekly planner created using HTML tables. It helps users visualize and manage their weekly routines effectively across all days.',
+        reflection: 'Building a weekly schedule using HTML allowed me to organize time-based information in a table layout. It helped reinforce the use of tables and alignment techniques.',
+        image: 'lab5.png',
+        link: 'Prelims-LAB Exercise 5.html'
+      },
+      {
+        category: 'prelims',
+        title: 'Class Schedule',
+        date: '2-3-25',
+        description: 'An interactive class schedule layout featuring subjects, instructors, time slots, and locations. The layout is mobile-friendly and easy to navigate for students and teachers alike.',
+        reflection: 'Through this project, I practiced creating a well-structured class schedule using only HTML. It gave me a better understanding of how to format repeated content efficiently.',
+        image: 'lab6.png',
+        link: 'LabExer6.html'
+      },
+      {
+        category: 'prelims',
+        title: 'Prelims Portfolio',
+        date: '2-3-25',
+        description: 'A compilation of all Prelim-related projects displayed with cards and categorized sections. It serves as a digital showcase of accomplishments and learnings during the prelim period.',
+        reflection: 'I compiled my preliminary projects into one HTML-based portfolio. It was a great way to review my progress and see how my understanding of HTML has grown.',
+        image: 'lab7.png',
+        link: 'Prelims-LAB Exercise 7.html'
+      },
+      {
+        category: 'midterms',
+        title: 'CSS of Sample Polynomial Expression (internal css)',
+        date: '3-17-25',
+        description: 'A basic math-focused web page created using HTML. This project showcases the structure and formatting of polynomial expressions with clear text hierarchy, proper use of superscripts for exponents.',
+        reflection: 'Designing a sample polynomial mathematics layout in HTML with CSS styling was a simple yet meaningful exercise in blending structure and aesthetics. This activity helped me recognize how even mathematical content, which is usually confined to textbooks or formulas, can be visually engaging and intuitive when presented through the web.',
+        image: 'lab2.png',
+        link: 'Prelims-LAB Exercise 2.html'
+      },
+      {
+        category: 'midterms',
+        title: 'CSS of Sample Polynomial Expression (external css & background)',
+        date: '3-17-25',
+        description: 'A basic math-focused web page created using HTML. This project showcases the structure and formatting of polynomial expressions with clear text hierarchy, proper use of superscripts for exponents.',
+        reflection: 'Designing a sample polynomial mathematics layout in HTML with CSS styling was a simple yet meaningful exercise in blending structure and aesthetics. This activity helped me recognize how even mathematical content, which is usually confined to textbooks or formulas, can be visually engaging and intuitive when presented through the web.',
+        image: 'mid-pic2.png',
+        link: 'Mid-Lab2a.html'
+      },
+      {
+        category: 'midterms',
+        title: 'CSS of Article (external css)',
+        date: '3-17-25',
+        description: 'A concise and informative article web page built with semantic HTML. This project demonstrates proper article structuring, headings, and paragraph styling, focusing on clarity and readability of written content.',
+        reflection: 'Creating an external CSS file to style an article webpage was a great learning experience in modular web design and separation of content from presentation. By using an external stylesheet, I was able to maintain a cleaner HTML structure while applying consistent and reusable styles across the entire webpage.',
+        image: 'lab4.png',
+        link: 'Prelims-LAB Exercise 4.html'
+      },
+      {
+        category: 'midterms',
+        title: 'CSS of Camping Safety',
+        date: '3-17-25',
+        description: 'An informative webpage that outlines essential safety guidelines for camping. It includes visual tips, dos and donts, and helpful resources to ensure a secure outdoor experience.',
+        reflection: 'I compiled my preliminary projects into one HTML-based portfolio. It was a great way to review my progress and see how my understanding of HTML has grown.',
+        image: 'lab3.png',
+        link: 'Prelims-LAB Exercise 3.html'
+      },
+      {
+        category: 'midterms',
+        title: 'CSS of Weekly Schedule (internal css)',
+        date: '23-17-25',
+        description: 'A structured weekly planner created using HTML tables. It helps users visualize and manage their weekly routines effectively across all days.',
+        reflection: 'Creating a school schedule with internal CSS was an insightful exercise that allowed me to understand how styling can be handled directly within an HTML document. This activity helped me explore the benefits and limitations of internal CSS while giving me a chance to apply key web design principles to structure and style a complex schedule layout. ',
+        image: 'lab5.png',
+        link: 'Prelims-LAB Exercise 5.html'
+      },
+      {
+        category: 'midterms',
+        title: 'CSS of Weekly Schedule (external css)',
+        date: '3-24-25',
+        description: 'A structured weekly planner created using HTML tables. It helps users visualize and manage their weekly routines effectively across all days.',
+        reflection: 'Creating an interactive and visually appealing school schedule using external CSS was a rewarding challenge. It not only helped me apply what I’ve learned about CSS, but also improved my understanding of how to style dynamic content like tables, charts, and form elements effectively. The task involved presenting a school schedule in an easy-to-read and organized manner, allowing students and staff to access information such as class times, instructors, and room locations.',
+        image: 'lab5.png',
+        link: 'Prelims-LAB Exercise 5.html'
+      },
+      {
+        category: 'midterms',
+        title: 'CSS of School Schedule (external css)',
+        date: '3-24-25',
+        description: 'An interactive class schedule layout featuring subjects, instructors, time slots, and locations. The layout is mobile-friendly and easy to navigate for students and teachers alike.',
+        reflection: 'Creating an interactive and visually appealing school schedule using external CSS was a rewarding challenge. It not only helped me apply what I’ve learned about CSS, but also improved my understanding of how to style dynamic content like tables, charts, and form elements effectively. The task involved presenting a school schedule in an easy-to-read and organized manner, allowing students and staff to access information such as class times, instructors, and room locations.',
+        image: 'lab6.png',
+        link: 'LabExer6.html'
+      },
+      {
+        category: 'midterms',
+        title: 'CSS of Article (div & internal css)',
+        date: '3-24-25',
+        description: 'A concise and informative article web page built with semantic HTML. This project demonstrates proper article structuring, headings, and paragraph styling, focusing on clarity and readability of written content.',
+        reflection: 'During the process of creating internal CSS and structuring div elements for articles, I gained a deeper understanding of how styling and layout work together to enhance the visual presentation of content. The task involved organizing articles in a way that not only made them easy to read and navigate but also visually appealing and interactive. ',
+        image: 'mid-pic6-article.png',
+        link: 'Finals-lab6-article.html'
+      },
+      {
+        category: 'finals',
+        title: 'Calculator',
+        date: '4-21-25',
+        description: 'This project is a simple yet functional calculator built using HTML, CSS, and JavaScript. It allows users to perform basic arithmetic operations including addition, subtraction, multiplication, and division. I implemented features such as a clear button, backspace functionality, and real-time display updates. The project emphasizes interactive design using event listeners and DOM manipulation, which helped solidify my understanding of JavaScript fundamentals. The interface is responsive and styled with a clean, user-friendly layout.',
+        reflection: 'Creating this calculator was a turning point in my JavaScript learning experience. It challenged me to apply logic, manage user inputs, and dynamically update the UI—skills that are crucial in real-world web development. I learned how important it is to plan out functions carefully and handle edge cases like dividing by zero or pressing multiple operators in a row. Overall, this project boosted my confidence in using JavaScript for interactive web applications and gave me a strong foundation to build more advanced projects in the future.',
+        image: 'finals-lab1.png',
+        link: 'Finals-lab1.html'
+      },
+      {
+        category: 'finals',
+        title: 'Even & Prime Checker',
+        date: '4-28-25',
+        description: 'This JavaScript project is a number checker tool that determines whether a given number is odd or even, and also checks if its prime or composite. Using input validation, conditionals, and modular arithmetic, the program provides immediate feedback to the user through a clean and interactive interface. I used JavaScript functions to handle the logic and DOM manipulation to display the results dynamically. The design is lightweight and responsive, ensuring a smooth experience across devices.',
+        reflection: 'Building this project helped me deepen my understanding of number theory and logical conditions in programming. I learned how to break down a problem into smaller parts—first checking for parity, then evaluating for primality. One of the challenges was efficiently checking for prime numbers, especially with edge cases like 0, 1, and negative numbers. This experience also reinforced my skills in user input handling, validating data, and improving UI clarity. It’s a great example of how JavaScript can be used for quick mathematical tools and real-time interaction.',
+        image: 'finals-lab2.png',
+        link: 'Finals-Lab2.html'
+      },
+      {
+        category: 'finals',
+        title: 'Converter',
+        date: '4-28-25',
+        description: 'This JavaScript project is a simple yet practical unit converter that transforms a distance value from kilometers to centimeters. Users input a number in kilometers, and the program instantly displays the equivalent distance in centimeters. The logic is handled by a straightforward JavaScript function that multiplies the input by 100,000—the standard conversion factor. The user interface is designed to be minimalistic, with real-time output updates using DOM manipulation.',
+        reflection: 'While this project may seem simple at first glance, it helped me appreciate the importance of precision and usability in programming. I learned how to handle user input smoothly, validate numeric data, and update content dynamically on the page. It also gave me practice with basic mathematical operations and reinforced my understanding of how to create useful everyday tools with JavaScript. This project showed me that even the simplest ideas can be meaningful when applied with proper coding techniques.',
+        image: 'finals-lab3.png',
+        link: 'Finals-Lab3.html'
+      },
+      {
+        category: 'finals',
+        title: 'Multiplication Table',
+        date: '4-28-25',
+        description: 'This project is a dynamic multiplication table generator built with HTML, CSS, and JavaScript. Users can enter a number, and the program instantly displays its multiplication table up to 10 (or more, depending on the implementation). The JavaScript logic uses loops and event listeners to calculate and display the results in a clean, organized layout. It’s a helpful tool for students and anyone practicing basic math skills.',
+        reflection: 'Creating this project helped me get more comfortable with loops in JavaScript, especially the use of for loops to generate repetitive content dynamically. I also practiced validating input to ensure users enter a valid number. It was satisfying to see how a simple concept like multiplication could be turned into an interactive learning tool. This project reminded me that even basic programming logic can make learning more engaging and accessible when combined with a user-friendly interface.',
+        image: 'finals-lab4.png',
+        link: 'Finals-Lab4.html'
+      },
+      {
+        category: 'finals',
+        title: 'Portfolio',
+        date: '5-5-25',
+        description: 'This project is a comprehensive portfolio compiling all major activities and projects I completed during the final term of my first year in Computer Science. It includes JavaScript mini-projects such as the calculator, number checkers (odd/even & prime/composite), unit converters, and multiplication table generator. Each activity showcases my progress in understanding fundamental programming concepts like conditionals, loops, functions, and DOM manipulation. The portfolio is designed to be user-friendly, organized, and visually consistent with my overall web development theme.',
+        reflection: 'This finals portfolio reflects not just the culmination of my work, but the journey I took to learn, practice, and grow in my coding abilities. Looking back at each project, I can see how my problem-solving skills improved and how I became more confident in applying JavaScript in practical scenarios. Compiling everything into one cohesive platform also taught me the importance of documentation, presentation, and user experience. More than just a requirement, this portfolio became a meaningful reminder of how far I’ve come in just one semester.',
+        image: 'humcom-portfolio.png',
+        link: 'HUMCOM-PORTFOLIO.pdf'
+      },
+      // Add more projects as needed...
+    ];
+
+    const container = document.getElementById('projectContainer');
+
+    function displayProjects(projects) {
+      container.innerHTML = ''; // Clear existing projects
+
+      projects.forEach(data => {
+        const col = document.createElement('div');
+        col.className = 'col-md-4 project-card';
+        col.setAttribute('data-category', data.category);
+        col.innerHTML = `
+          <div class="card h-100" data-project='${JSON.stringify(data)}'>
+            <img src="${data.image}" class="card-img-top" alt="${data.title}">
+            <div class="card-body d-flex flex-column">
+              <span class="category-tag">${data.category.charAt(0).toUpperCase() + data.category.slice(1)}</span>
+              <h5 class="card-title">${data.title}</h5>
+              <p class="card-text">${data.description}</p>
+              <div class="tech-icons mt-auto">
+                <i class="fab fa-html5" title="HTML5"></i>
+                <i class="fab fa-css3-alt" title="CSS3"></i>
+                <i class="fab fa-js" title="JavaScript"></i>
+              </div>
+            </div>
+          </div>
+        `;
+        container.appendChild(col);
+      });
+    }
+
+    displayProjects(projectData);
+
+    const modal = document.getElementById('projectModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDate = document.getElementById('modalDate');
+    const modalDesc = document.getElementById('modalDesc');
+    const modalReflection = document.getElementById('modalReflection');
+    const modalImage = document.getElementById('modalImage');
+    const modalLink = document.getElementById('modalLink');
+    const closeModal = document.getElementById('closeModal');
+  
+    // Filter logic
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const category = btn.getAttribute('data-category');
+  
+        const filteredProjects = category === 'all' ? projectData : projectData.filter(project => project.category === category);
+        displayProjects(filteredProjects);
+      });
+    });
+  
+    // Use event delegation for click (correct fix)
+    document.getElementById('projectContainer').addEventListener('click', function (e) {
+      const card = e.target.closest('.card[data-project]');
+      if (!card) return;
+
+      try {
+        const data = JSON.parse(card.getAttribute('data-project'));
+        modalTitle.textContent = data.title;
+        modalDate.textContent = data.date;
+        modalDesc.textContent = data.description;
+        modalReflection.textContent = data.reflection;
+        modalImage.src = data.image;
+        modalLink.href = data.link;
+        modal.classList.add('active');
+      } catch (err) {
+        console.error("Invalid JSON in data-project:", err);
+      }
+    });
+
+    // Close modal
+    closeModal.addEventListener('click', () => {
+      modal.classList.remove('active');
+    });
+
+    document.getElementById('neumorphismBtn').addEventListener('click', function () {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+  </script>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
+</body>
+
+</html>

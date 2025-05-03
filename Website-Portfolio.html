@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BEAM</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="animation.css">
+  <link rel="stylesheet" href="darkmode.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      background: #f2f2f2;
+      scroll-behavior: smooth;
+      overflow-x: hidden; /* Allow vertical scrolling, prevent horizontal */
+      outline: 2px dashed red;
+    }
+
+    .container {
+  height: 100%; /* Change min-height to height */
+  width: 100%;
+  background: white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.wrapper {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* Allow wrapper to grow */
+}
+
+    .top-bar {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .header-logo img {
+      width: 40px;
+      height: auto;
+      margin-left: 1px;
+    }
+
+    .main-content {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    .main-content img {
+      max-width: 100%;
+      width: 400px;
+      border-radius: 10px;
+      object-fit: cover;
+      margin-left: 10px;
+      transform: translateX(-100px);
+    }
+
+    .text-content {
+      flex: 1;
+      margin-right: 30px;
+      min-width: 300px;
+    }
+
+    .text-content h1 {
+      font-size: 100px;
+      margin-bottom: 20px;
+      font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+      letter-spacing: 10px;
+    }
+
+    .quote {
+      font-size: 16px;
+      font-style: italic;
+      margin-bottom: 20px;
+      color: #444;
+      letter-spacing: 7px;
+    }
+
+    .text-content p {
+      font-size: 14px;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .highlight {
+      font-weight: bold;
+    }
+
+    .side-icons {
+      position: fixed;
+      right: 30px;
+      top: 50%;
+      transform: translateY(-60%);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      z-index: 1000;
+    }
+
+    .icon-circle {
+      background-color: #e0e0e0;
+      border-radius: 50%;
+      padding: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.3s, transform 0.2s;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+    }
+
+    .icon-circle:hover {
+      background-color: #333;
+      transform: scale(1.1);
+    }
+
+    .icon-circle i {
+      color: #333;
+      font-size: 18px;
+    }
+
+    .icon-circle:hover i {
+      color: #fff;
+    }
+
+    /* Dark/Light Mode Button Styling */
+    .theme-toggle {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background-color: #e0e0e0;
+      padding: 12px;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 1000;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .theme-toggle:hover {
+      background-color: #333;
+      transform: scale(1.1);
+    }
+
+    .theme-toggle i {
+      font-size: 18px;
+      color: #333;
+    }
+
+    .theme-toggle:hover i {
+      color: #fff;
+    }
+
+    /* Dark/Light Mode Toggle Button */
+    .mode-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #e0e0e0;
+      border-radius: 50%;
+      padding: 12px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      cursor: pointer;
+      z-index: 1001;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .mode-toggle i {
+      color: #333;
+      font-size: 18px;
+      transition: color 0.3s ease;
+    }
+
+    .mode-toggle:hover {
+      background-color: #333;
+      transform: scale(1.1);
+    }
+
+    .mode-toggle:hover i {
+      color: #fff;
+    }
+
+    /* Dark Mode Styles */
+    body.dark-mode {
+      background-color: #121212;
+      color: #f0f0f0;
+    }
+
+    body.dark-mode .container {
+      background-color: #1e1e1e;
+    }
+
+    body.dark-mode .text-content h1,
+    body.dark-mode .text-content p,
+    body.dark-mode .quote,
+    body.dark-mode .highlight {
+      color: #f0f0f0;
+    }
+
+    body.dark-mode .icon-circle {
+      background-color: #2c2c2c;
+    }
+
+    body.dark-mode .icon-circle i {
+      color: #f0f0f0;
+    }
+
+    body.dark-mode .mode-toggle {
+      background-color: #2c2c2c;
+    }
+
+    body.dark-mode .mode-toggle i {
+      color: #f0f0f0;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    /* Media Queries for responsiveness */
+    @media (max-width: 768px) {
+      .main-content {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .text-content h1 {
+        font-size: 40px;
+        text-align: center;
+      }
+
+      .text-content p {
+        font-size: 16px;
+        text-align: center;
+      }
+
+      .main-content img {
+        max-width: 100%;
+        margin: 20px 0;
+        transform: translateX(0);
+      }
+
+      .side-icons {
+        right: 10px;
+        top: 20px;
+        transform: translateY(0);
+        gap: 10px;
+      }
+
+      .side-icons .icon-circle {
+        padding: 6px;
+      }
+
+      .theme-toggle, .mode-toggle {
+        bottom: 20px;
+        right: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Top Bar with Logo -->
+    <div class="top-bar">
+      <div class="header-logo">
+        <img src="KAI_.RO-removebg-preview.png" alt="BEAM Logo" />
+      </div>
+    </div>
+  
+    <!-- Main Content Area -->
+    <div class="main-content">
+      <div class="text-content">
+        <h1>BEAM</h1>
+        <div class="quote"><span class="highlight">“Believe. Engage. Act. Maintain.”</span></div>
+        <p>
+          <br><br>Hello and welcome! I’m <span class="highlight">Karl Angelo B. Marteja</span>, a student of 
+          <span class="highlight">Bachelor of Science in Computer Science</span>.
+          <br>This portfolio serves as a glimpse into my journey as a developer and creative thinker. 
+          <br>It showcases my skills, projects, and the continuous growth I pursue in the tech world.
+          <br>I believe in lifelong learning, and I approach each challenge as a stepping stone toward better 
+          <br>solutions and personal evolution.
+          <br><br>
+          Whether you're here to explore my work, connect with me, or simply get inspired—thank you for visiting.
+        </p>
+      </div>
+  
+      <!-- Personal Photo -->
+      <img src="copy.webp" alt="Your Photo" />
+    </div>
+  
+    <!-- Side Circular Icon Buttons -->
+    <div class="side-icons">
+      <a href="Website-Portfolio.html">
+        <div class="icon-circle"><i class="fas fa-home" title="Home"></i></div>
+      </a>
+      <a href="Profile.html">
+        <div class="icon-circle"><i class="fas fa-user" title="Profile"></i></div>
+      </a>
+      <a href="Projects.html">
+        <div class="icon-circle"><i class="fas fa-folder" title="Projects"></i></div>
+      </a>
+      <a href="Contacts.html">
+        <div class="icon-circle"><i class="fas fa-address-book" title="Contacts"></i></div>
+      </a>
+      <a href="About.html">
+        <div class="icon-circle"><i class="fas fa-info-circle" title="About"></i></div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Dark/Light Mode Toggle -->
+  <div class="mode-toggle" id="modeToggle" title="Toggle Light/Dark Mode">
+    <i class="fas fa-moon"></i>
+  </div>
+
+  <script>
+    const toggle = document.getElementById('modeToggle');
+    const icon = toggle.querySelector('i');
+
+    // Load dark mode preference from localStorage
+    const savedMode = localStorage.getItem('mode');
+    if (savedMode === 'dark') {
+      document.body.classList.add('dark-mode');
+      icon.classList.replace('fa-moon', 'fa-sun');
+    } else if (savedMode === 'light') {
+      document.body.classList.remove('dark-mode');
+      icon.classList.replace('fa-sun', 'fa-moon');
+    } else {
+      // If no preference, use system setting
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (prefersDark) {
+        document.body.classList.add('dark-mode');
+        icon.classList.replace('fa-moon', 'fa-sun');
+      }
+    }
+
+    toggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      const darkModeOn = document.body.classList.contains('dark-mode');
+
+      // Save preference
+      localStorage.setItem('mode', darkModeOn ? 'dark' : 'light');
+
+      // Switch icon
+      icon.classList.toggle('fa-sun', darkModeOn);
+      icon.classList.toggle('fa-moon', !darkModeOn);
+    });
+  </script>
+</body>
+</html>

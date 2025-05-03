@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Font Awesome for social icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="animation.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="darkmode.css">
+
+  <!-- Custom CSS for background and style -->
+  <style>
+    body {
+      background-color: #f9f9f9;
+    }
+    .contact-section {
+      background-color: #fff; /* Plain background */
+      color: #333; /* Dark text for readability */
+      padding: 60px 0;
+    }
+
+    h2.contact-title {
+      font-size: 50px;
+      font-weight: bold;
+      color: #333; /* Contrasting dark color */
+      margin-bottom: 40px;
+    }
+
+    .card-body {
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow on card */
+      border-radius: 8px;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .card-body:hover {
+      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Hover effect on card */
+    }
+
+    .card-body a {
+      color: #333; /* Dark color for social icons */
+      font-size: 24px;
+      transition: color 0.3s;
+    }
+
+    .card-body a:hover {
+      color: #80b49e; /* Green hover color for icons */
+    }
+
+    .contact-info .row {
+      margin-bottom: 20px;
+    }
+
+    .map-container {
+      width: 100%;
+      height: 300px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow on map */
+      border-radius: 8px;
+    }
+
+    .contact-form {
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow on form */
+    }
+
+    .contact-form:hover {
+      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Hover effect on form */
+    }
+
+    h4 {
+        font-size: 30px;
+    }
+
+    p {
+        font-size: 18px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .neumorphism-btn {
+  width: 50px;
+  height: 50px;
+  background: #e0e5ec;
+  border-radius: 50%;
+  box-shadow: 8px 8px 15px #a3b1c6, -8px -8px 15px #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  transition: transform 0.3s ease;
+}
+
+.neumorphism-btn:active {
+  transform: translateY(-10px);
+}
+
+.neumorphism-btn .arrow {
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 15px solid #6c7b8b;
+}
+
+/* Hover effect for more interactivity */
+.neumorphism-btn:hover {
+  box-shadow: 4px 4px 10px #a3b1c6, -4px -4px 10px #ffffff;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+  </style>
+</head>
+<body class="page-about">
+
+<!-- Contact Section -->
+<section class="contact-section">
+  <div class="container text-center">
+
+    <!-- Contact Title -->
+    <h2 class="contact-title" data-aos="fade-up">Get in Touch</h2>
+
+    <!-- Social Media & Contact Info -->
+    <div class="row contact-info" data-aos="fade-up">
+      <div class="col-md-12" data-aos="fade-up">
+        <div class="card mb-4" data-aos="fade-up">
+          <div class="card-body" data-aos="fade-up">
+            <h5 class="card-title" data-aos="fade-up">Connect with Me</h5>
+            <a href="https://www.facebook.com/marteja.karl" target="_blank" class="me-3"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.instagram.com/mrtk.gelo/?fbclid=IwY2xjawJoUvZleHRuA2FlbQIxMAABHgDvQfR93OA1W0N1oxWL8JYI57PyivmW5CpZ7LxzWVh7jLPdjafcpwCavkbG_aem_L7ETBDe3vIxQIbeZmJ0bpQ#" target="_blank" class="me-3"><i class="fab fa-instagram"></i></a>
+            <a href="https://twitter.com" target="_blank" class="me-3"><i class="fab fa-twitter"></i></a>
+            <div class="mt-4" data-aos="fade-up">
+              <p><strong>Email: </strong><a style="font-size: 15px;" href="mailto:karlangelomarteja2006@gmail.com" target="_blank">karlangelomarteja2006@gmail.com</a></p>
+              <p><strong>Phone:</strong> <a style="font-size: 15px;" href="tel:+639761830493" target="_blank">(63+) 976 183 0493</a></p> 
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Map Integration -->
+    <div class="row mb-5" data-aos="fade-up">
+      <div class="col-md-12" data-aos="fade-up">
+        <h4 data-aos="fade-up">Find Me Here</h4>
+        <div class="map-container" data-aos="fade-up">
+          <!-- Google Maps iframe (replace with your actual location) -->
+          <iframe src="https://ph300479-baguio-transient-house.contact.page/map#google_vignette" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Form -->
+    <div class="row" data-aos="fade-up">
+      <div class="col-md-6 offset-md-3" data-aos="fade-up">
+        <div class="contact-form" data-aos="fade-up">
+          <h4>Send Me a Message</h4>
+          <form>
+            <div class="mb-3" data-aos="fade-up">
+              <label for="name" class="form-label" >Name</label>
+              <input type="text" class="form-control" id="name" placeholder="Your Name">
+            </div>
+            <div class="mb-3" data-aos="fade-up">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" placeholder="Your Email">
+            </div>
+            <div class="mb-3" data-aos="fade-up">
+              <label for="message" class="form-label">Message</label>
+              <textarea class="form-control" id="message" rows="4" placeholder="Your Message"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="neumorphism-btn" id="neumorphismBtn">
+    <div class="arrow"></div>
+  </div>
+
+  <!-- Footer Section -->
+  <footer class="text-center py-3">
+    <hr>
+    <p>© 2025 Karl Marteja | BSCS | First-Year | All Rights Reserved</p>
+  </footer>
+
+</section>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 800, // optional: animation duration in ms
+    once: true, // optional: animation happens only once
+  });
+
+  // Optional: Auto-apply fade-up to all elements with .aos-fade class
+  document.querySelectorAll('.aos-fade').forEach(el => {
+    el.setAttribute('data-aos', 'fade-up');
+  });
+
+  document.querySelector("form").addEventListener("submit", function(e) {
+    e.preventDefault(); // Prevent actual page reload
+
+    // Get input values (optional for future use)
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const message = document.getElementById("message").value.trim();
+
+    if (name && email && message) {
+      // Clear inputs
+      document.getElementById("name").value = "";
+      document.getElementById("email").value = "";
+      document.getElementById("message").value = "";
+
+      // Create success alert
+      const successMessage = document.createElement("div");
+      successMessage.className = "alert alert-success mt-3";
+      successMessage.textContent = "✅ Message Sent Successfully!";
+
+      // Append message below the form
+      this.appendChild(successMessage);
+
+      // Remove after 4 seconds
+      setTimeout(() => successMessage.remove(), 4000);
+    } else {
+      alert("Please fill in all fields.");
+    }
+  });
+
+  document.getElementById('neumorphismBtn').addEventListener('click', function () {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+});
+  
+</script>
+
+</body>
+</html>
